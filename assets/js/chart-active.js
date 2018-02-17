@@ -1,4 +1,4 @@
-$(document).ready(function() {
+jQuery(document).ready(function() {
 	// Bar Chart
 	var randomScalingFactor = function() {
 		return Math.round(Math.random() * 100)

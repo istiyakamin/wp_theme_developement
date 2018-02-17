@@ -12,7 +12,7 @@
  *            http://creativecommons.org/licenses/by-nc/3.0/
  */
 
-(function($, undf){
+(function(jQuery, undf){
 	'use strict';
 
 	/**
@@ -21,12 +21,12 @@
 	 * @extends jQuery
 	 */
 
-	$.MixItUp = function(){
+	jQuery.MixItUp = function(){
 		var self = this;
 
 		self._execAction('_constructor', 0);
 
-		$.extend(self, {
+		jQuery.extend(self, {
 
 			/* Public Properties
 			---------------------------------------------------------------------- */
@@ -84,12 +84,12 @@
 			/* Private Properties
 			---------------------------------------------------------------------- */
 
-			_$body: null,
-			_$container: null,
-			_$targets: null,
-			_$parent: null,
-			_$sortButtons: null,
-			_$filterButtons: null,
+			_jQuerybody: null,
+			_jQuerycontainer: null,
+			_jQuerytargets: null,
+			_jQueryparent: null,
+			_jQuerysortButtons: null,
+			_jQueryfilterButtons: null,
 
 			_suckMode: false,
 			_mixing: false,
@@ -117,8 +117,8 @@
 			_targetsDone: 0,
 			_queue: [],
 
-			_$show: $(),
-			_$hide: $()
+			_jQueryshow: jQuery(),
+			_jQueryhide: jQuery()
 		});
 
 		self._execAction('_constructor', 1);
@@ -129,8 +129,8 @@
 	 * @override
 	 */
 
-	$.MixItUp.prototype = {
-		constructor: $.MixItUp,
+	jQuery.MixItUp.prototype = {
+		constructor: jQuery.MixItUp,
 
 		/* Static Properties
 		---------------------------------------------------------------------- */
@@ -159,7 +159,7 @@
 
 		extend: function(extension){
 			for(var key in extension){
-				$.MixItUp.prototype[key] = extension[key];
+				jQuery.MixItUp.prototype[key] = extension[key];
 			}
 		},
 
@@ -170,11 +170,11 @@
 		 * @param {string} namespace
 		 * @param {function} function to execute
 		 * @param {number} priority
-		 * @extends {object} $.MixItUp.prototype._actions
+		 * @extends {object} jQuery.MixItUp.prototype._actions
 		 */
 
 		addAction: function(hook, name, func, priority){
-			$.MixItUp.prototype._addHook('_actions', hook, name, func, priority);
+			jQuery.MixItUp.prototype._addHook('_actions', hook, name, func, priority);
 		},
 
 		/**
@@ -184,11 +184,11 @@
 		 * @param {string} namespace
 		 * @param {function} function to execute
 		 * @param {number} priority
-		 * @extends {object} $.MixItUp.prototype._filters
+		 * @extends {object} jQuery.MixItUp.prototype._filters
 		 */
 
 		addFilter: function(hook, name, func, priority){
-			$.MixItUp.prototype._addHook('_filters', hook, name, func, priority);
+			jQuery.MixItUp.prototype._addHook('_filters', hook, name, func, priority);
 		},
 
 		/**
@@ -198,11 +198,11 @@
 		 * @param {string} hook name
 		 * @param {function} function to execute
 		 * @param {number} priority
-		 * @extends {object} $.MixItUp.prototype._filters
+		 * @extends {object} jQuery.MixItUp.prototype._filters
 		 */
 
 		_addHook: function(type, hook, name, func, priority){
-			var collection = $.MixItUp.prototype[type],
+			var collection = jQuery.MixItUp.prototype[type],
 				obj = {};
 
 			priority = (priority === 1 || priority === 'post') ? 'post' : 'pre';
@@ -211,7 +211,7 @@
 			obj[hook][priority] = {};
 			obj[hook][priority][name] = func;
 
-			$.extend(true, collection, obj);
+			jQuery.extend(true, collection, obj);
 		},
 
 
@@ -230,12 +230,12 @@
 
 			self._execAction('_init', 0, arguments);
 
-			config && $.extend(true, self, config);
+			config && jQuery.extend(true, self, config);
 
-			self._$body = $('body');
+			self._jQuerybody = jQuery('body');
 			self._domNode = domNode;
-			self._$container = $(domNode);
-			self._$container.addClass(self.layout.containerClass);
+			self._jQuerycontainer = jQuery(domNode);
+			self._jQuerycontainer.addClass(self.layout.containerClass);
 			self._id = domNode.id;
 
 			self._platformDetect();
@@ -244,7 +244,7 @@
 
 			self._refresh(true);
 
-			self._$parent = self._$targets.parent().length ? self._$targets.parent() : self._$container;
+			self._jQueryparent = self._jQuerytargets.parent().length ? self._jQuerytargets.parent() : self._jQuerycontainer;
 
 			if(self.load.sort){
 				self._newSort = self._parseSort(self.load.sort);
@@ -276,13 +276,13 @@
 
 			self._init = true;
 
-			self._$container.data('mixItUp',self);
+			self._jQuerycontainer.data('mixItUp',self);
 
 			self._execAction('_init', 1, arguments);
 
 			self._buildState();
 
-			self._$targets.css(self._brake);
+			self._jQuerytargets.css(self._brake);
 
 			self._goMix(self.animation.enable);
 		},
@@ -384,10 +384,10 @@
 
 			self._execAction('_refresh', 0, arguments);
 
-			self._$targets = self._$container.find(self.selectors.target);
+			self._jQuerytargets = self._jQuerycontainer.find(self.selectors.target);
 
-			for(var i = 0; i < self._$targets.length; i++){
-				var target = self._$targets[i];
+			for(var i = 0; i < self._jQuerytargets.length; i++){
+				var target = self._jQuerytargets[i];
 
 				if(target.dataset === undf || force){
 
@@ -412,13 +412,13 @@
 			}
 
 			if(
-				(self._$targets.length && init) ||
-				(!self._origOrder.length && self._$targets.length)
+				(self._jQuerytargets.length && init) ||
+				(!self._origOrder.length && self._jQuerytargets.length)
 			){
 				self._origOrder = [];
 
-				for(var i = 0; i < self._$targets.length; i++){
-					var target = self._$targets[i];
+				for(var i = 0; i < self._jQuerytargets.length; i++){
+					var target = self._jQuerytargets[i];
 
 					self._origOrder.push(target);
 				}
@@ -434,29 +434,29 @@
 
 		_bindHandlers: function(){
 			var self = this,
-				filters = $.MixItUp.prototype._bound._filter,
-				sorts = $.MixItUp.prototype._bound._sort;
+				filters = jQuery.MixItUp.prototype._bound._filter,
+				sorts = jQuery.MixItUp.prototype._bound._sort;
 
 			self._execAction('_bindHandlers', 0);
 
 			if(self.controls.live){
-				self._$body
+				self._jQuerybody
 					.on('click.mixItUp.'+self._id, self.selectors.sort, function(){
-						self._processClick($(this), 'sort');
+						self._processClick(jQuery(this), 'sort');
 					})
 					.on('click.mixItUp.'+self._id, self.selectors.filter, function(){
-						self._processClick($(this), 'filter');
+						self._processClick(jQuery(this), 'filter');
 					});
 			} else {
-				self._$sortButtons = $(self.selectors.sort);
-				self._$filterButtons = $(self.selectors.filter);
+				self._jQuerysortButtons = jQuery(self.selectors.sort);
+				self._jQueryfilterButtons = jQuery(self.selectors.filter);
 
-				self._$sortButtons.on('click.mixItUp.'+self._id, function(){
-					self._processClick($(this), 'sort');
+				self._jQuerysortButtons.on('click.mixItUp.'+self._id, function(){
+					self._processClick(jQuery(this), 'sort');
 				});
 
-				self._$filterButtons.on('click.mixItUp.'+self._id, function(){
-					self._processClick($(this), 'filter');
+				self._jQueryfilterButtons.on('click.mixItUp.'+self._id, function(){
+					self._processClick(jQuery(this), 'filter');
 				});
 			}
 
@@ -469,21 +469,21 @@
 		/**
 		 * Process Click
 		 * @since 2.0.0
-		 * @param {object} $button
+		 * @param {object} jQuerybutton
 		 * @param {string} type
 		 */
 
-		_processClick: function($button, type){
+		_processClick: function(jQuerybutton, type){
 			var self = this,
-				trackClick = function($button, type, off){
-					var proto = $.MixItUp.prototype;
+				trackClick = function(jQuerybutton, type, off){
+					var proto = jQuery.MixItUp.prototype;
 
 					proto._handled['_'+type][self.selectors[type]] = (proto._handled['_'+type][self.selectors[type]] === undf) ?
 						1 :
 						proto._handled['_'+type][self.selectors[type]] + 1;
 
 					if(proto._handled['_'+type][self.selectors[type]] === proto._bound['_'+type][self.selectors[type]]){
-						$button[(off ? 'remove' : 'add')+'Class'](self.controls.activeClass);
+						jQuerybutton[(off ? 'remove' : 'add')+'Class'](self.controls.activeClass);
 						delete proto._handled['_'+type][self.selectors[type]];
 					}
 				};
@@ -494,40 +494,40 @@
 				self._clicking = true;
 
 				if(type === 'sort'){
-					var sort = $button.attr('data-sort');
+					var sort = jQuerybutton.attr('data-sort');
 
-					if(!$button.hasClass(self.controls.activeClass) || sort.indexOf('random') > -1){
-						$(self.selectors.sort).removeClass(self.controls.activeClass);
-						trackClick($button, type);
+					if(!jQuerybutton.hasClass(self.controls.activeClass) || sort.indexOf('random') > -1){
+						jQuery(self.selectors.sort).removeClass(self.controls.activeClass);
+						trackClick(jQuerybutton, type);
 						self.sort(sort);
 					}
 				}
 
 				if(type === 'filter') {
-					var filter = $button.attr('data-filter'),
+					var filter = jQuerybutton.attr('data-filter'),
 						ndx,
 						seperator = self.controls.toggleLogic === 'or' ? ',' : '';
 
 					if(!self.controls.toggleFilterButtons){
-						if(!$button.hasClass(self.controls.activeClass)){
-							$(self.selectors.filter).removeClass(self.controls.activeClass);
-							trackClick($button, type);
+						if(!jQuerybutton.hasClass(self.controls.activeClass)){
+							jQuery(self.selectors.filter).removeClass(self.controls.activeClass);
+							trackClick(jQuerybutton, type);
 							self.filter(filter);
 						}
 					} else {
 						self._buildToggleArray();
 
-						if(!$button.hasClass(self.controls.activeClass)){
-							trackClick($button, type);
+						if(!jQuerybutton.hasClass(self.controls.activeClass)){
+							trackClick(jQuerybutton, type);
 
 							self._toggleArray.push(filter);
 						} else {
-							trackClick($button, type, true);
+							trackClick(jQuerybutton, type, true);
 							ndx = self._toggleArray.indexOf(filter);
 							self._toggleArray.splice(ndx, 1);
 						}
 
-						self._toggleArray = $.grep(self._toggleArray,function(n){return(n);});
+						self._toggleArray = jQuery.grep(self._toggleArray,function(n){return(n);});
 
 						self._toggleString = self._toggleArray.join(seperator);
 
@@ -583,15 +583,15 @@
 					filter: command.filter,
 					sort: command.sort
 				},
-				update = function($el, filter){
+				update = function(jQueryel, filter){
 					try {
 						(multi && type === 'filter' && !(output.filter === 'none' || output.filter === '')) ?
-								$el.filter(filter).addClass(self.controls.activeClass) :
-								$el.removeClass(self.controls.activeClass).filter(filter).addClass(self.controls.activeClass);
+								jQueryel.filter(filter).addClass(self.controls.activeClass) :
+								jQueryel.removeClass(self.controls.activeClass).filter(filter).addClass(self.controls.activeClass);
 					} catch(e) {}
 				},
 				type = 'filter',
-				$el = null;
+				jQueryel = null;
 
 			self._execAction('_updateControls', 0, arguments);
 
@@ -600,8 +600,8 @@
 			(output.filter === self.selectors.target) && (output.filter = 'all');
 
 			for(var i = 0; i < 2; i++){
-				$el = self.controls.live ? $(self.selectors[type]) : self['_$'+type+'Buttons'];
-				$el && update($el, '[data-'+type+'="'+output[type]+'"]');
+				jQueryel = self.controls.live ? jQuery(self.selectors[type]) : self['_jQuery'+type+'Buttons'];
+				jQueryel && update(jQueryel, '[data-'+type+'="'+output[type]+'"]');
 				type = 'sort';
 			}
 
@@ -618,13 +618,13 @@
 
 			self._execAction('_filter', 0);
 
-			for(var i = 0; i < self._$targets.length; i++){
-				var $target = $(self._$targets[i]);
+			for(var i = 0; i < self._jQuerytargets.length; i++){
+				var jQuerytarget = jQuery(self._jQuerytargets[i]);
 
-				if($target.is(self._activeFilter)){
-					self._$show = self._$show.add($target);
+				if(jQuerytarget.is(self._activeFilter)){
+					self._jQueryshow = self._jQueryshow.add(jQuerytarget);
 				} else {
-					self._$hide = self._$hide.add($target);
+					self._jQueryhide = self._jQueryhide.add(jQuerytarget);
 				}
 			}
 
@@ -656,8 +656,8 @@
 
 			self._startOrder = [];
 
-			for(var i = 0; i < self._$targets.length; i++){
-				var target = self._$targets[i];
+			for(var i = 0; i < self._jQuerytargets.length; i++){
+				var target = self._jQuerytargets[i];
 
 				self._startOrder.push(target);
 			}
@@ -720,7 +720,7 @@
 		_printSort: function(reset){
 			var self = this,
 				order = reset ? self._startOrder : self._newOrder,
-				targets = self._$parent[0].querySelectorAll(self.selectors.target),
+				targets = self._jQueryparent[0].querySelectorAll(self.selectors.target),
 				nextSibling = targets.length ? targets[targets.length -1].nextElementSibling : null,
 				frag = document.createDocumentFragment();
 
@@ -733,10 +733,10 @@
 				if(target.style.position === 'absolute') continue;
 
 				if(whiteSpace && whiteSpace.nodeName === '#text'){
-					self._$parent[0].removeChild(whiteSpace);
+					self._jQueryparent[0].removeChild(whiteSpace);
 				}
 
-				self._$parent[0].removeChild(target);
+				self._jQueryparent[0].removeChild(target);
 			}
 
 			for(var i = 0; i < order.length; i++){
@@ -753,8 +753,8 @@
 			}
 
 			nextSibling ?
-				self._$parent[0].insertBefore(frag, nextSibling) :
-				self._$parent[0].appendChild(frag);
+				self._jQueryparent[0].insertBefore(frag, nextSibling) :
+				self._jQueryparent[0].appendChild(frag);
 
 			self._execAction('_printSort', 1, arguments);
 		},
@@ -876,13 +876,13 @@
 			state = {
 				activeFilter: self._activeFilter === '' ? 'none' : self._activeFilter,
 				activeSort: future && self._newSortString ? self._newSortString : self._activeSort,
-				fail: !self._$show.length && self._activeFilter !== '',
-				$targets: self._$targets,
-				$show: self._$show,
-				$hide: self._$hide,
-				totalTargets: self._$targets.length,
-				totalShow: self._$show.length,
-				totalHide: self._$hide.length,
+				fail: !self._jQueryshow.length && self._activeFilter !== '',
+				jQuerytargets: self._jQuerytargets,
+				jQueryshow: self._jQueryshow,
+				jQueryhide: self._jQueryhide,
+				totalTargets: self._jQuerytargets.length,
+				totalShow: self._jQueryshow.length,
+				totalHide: self._jQueryhide.length,
 				display: future && self._newDisplay ? self._newDisplay : self.layout.display
 			};
 
@@ -905,7 +905,7 @@
 			var self = this,
 				phase1 = function(){
 					if(self._chrome && (self._chrome === 31)){
-						chromeFix(self._$parent[0]);
+						chromeFix(self._jQueryparent[0]);
 					}
 
 					self._setInter();
@@ -959,13 +959,13 @@
 
 			self._mixing = true;
 
-			self._$container.removeClass(self.layout.containerClassFail);
+			self._jQuerycontainer.removeClass(self.layout.containerClassFail);
 
 			if(typeof self.callbacks.onMixStart === 'function'){
 				self.callbacks.onMixStart.call(self._domNode, self._state, futureState, self);
 			}
 
-			self._$container.trigger('mixStart', [self._state, futureState, self]);
+			self._jQuerycontainer.trigger('mixStart', [self._state, futureState, self]);
 
 			self._getOrigMixData();
 
@@ -1016,7 +1016,7 @@
 
 		_getOrigMixData: function(){
 			var self = this,
-				parentStyle = !self._suckMode ? window.getComputedStyle(self._$parent[0]) : {boxSizing: ''},
+				parentStyle = !self._suckMode ? window.getComputedStyle(self._jQueryparent[0]) : {boxSizing: ''},
 				parentBS = parentStyle.boxSizing || parentStyle[self._vendor+'BoxSizing'];
 
 			self._incPadding = (parentBS === 'border-box');
@@ -1025,16 +1025,16 @@
 
 			!self._suckMode && (self.effects = self._parseEffects());
 
-			self._$toHide = self._$hide.filter(':visible');
-			self._$toShow = self._$show.filter(':hidden');
-			self._$pre = self._$targets.filter(':visible');
+			self._jQuerytoHide = self._jQueryhide.filter(':visible');
+			self._jQuerytoShow = self._jQueryshow.filter(':hidden');
+			self._jQuerypre = self._jQuerytargets.filter(':visible');
 
 			self._startHeight = self._incPadding ?
-				self._$parent.outerHeight() :
-				self._$parent.height();
+				self._jQueryparent.outerHeight() :
+				self._jQueryparent.height();
 
-			for(var i = 0; i < self._$pre.length; i++){
-				var el = self._$pre[i];
+			for(var i = 0; i < self._jQuerypre.length; i++){
+				var el = self._jQuerypre[i];
 
 				self._getTargetData(el, 'orig');
 			}
@@ -1053,15 +1053,15 @@
 			self._execAction('_setInter', 0);
 
 			if(self._changingLayout && self.animation.animateChangeLayout){
-				self._$toShow.css('display',self._newDisplay);
+				self._jQuerytoShow.css('display',self._newDisplay);
 
 				if(self._changingClass){
-					self._$container
+					self._jQuerycontainer
 						.removeClass(self.layout.containerClass)
 						.addClass(self._newClass);
 				}
 			} else {
-				self._$toShow.css('display', self.layout.display);
+				self._jQuerytoShow.css('display', self.layout.display);
 			}
 
 			self._execAction('_setInter', 1);
@@ -1077,14 +1077,14 @@
 
 			self._execAction('_getInterMixData', 0);
 
-			for(var i = 0; i < self._$toShow.length; i++){
-				var el = self._$toShow[i];
+			for(var i = 0; i < self._jQuerytoShow.length; i++){
+				var el = self._jQuerytoShow[i];
 
 				self._getTargetData(el, 'inter');
 			}
 
-			for(var i = 0; i < self._$pre.length; i++){
-				var el = self._$pre[i];
+			for(var i = 0; i < self._jQuerypre.length; i++){
+				var el = self._jQuerypre[i];
 
 				self._getTargetData(el, 'inter');
 			}
@@ -1104,10 +1104,10 @@
 
 			self._sorting && self._printSort();
 
-			self._$toHide.removeStyle('display');
+			self._jQuerytoHide.removeStyle('display');
 
 			if(self._changingLayout && self.animation.animateChangeLayout){
-				self._$pre.css('display',self._newDisplay);
+				self._jQuerypre.css('display',self._newDisplay);
 			}
 
 			self._execAction('_setFinal', 1);
@@ -1123,30 +1123,30 @@
 
 			self._execAction('_getFinalMixData', 0);
 
-			for(var i = 0; i < self._$toShow.length; i++){
-				var el = self._$toShow[i];
+			for(var i = 0; i < self._jQuerytoShow.length; i++){
+				var el = self._jQuerytoShow[i];
 
 				self._getTargetData(el, 'final');
 			}
 
-			for(var i = 0; i < self._$pre.length; i++){
-				var el = self._$pre[i];
+			for(var i = 0; i < self._jQuerypre.length; i++){
+				var el = self._jQuerypre[i];
 
 				self._getTargetData(el, 'final');
 			}
 
 			self._newHeight = self._incPadding ?
-				self._$parent.outerHeight() :
-				self._$parent.height();
+				self._jQueryparent.outerHeight() :
+				self._jQueryparent.height();
 
 			self._sorting && self._printSort(true);
 
-			self._$toShow.removeStyle('display');
+			self._jQuerytoShow.removeStyle('display');
 
-			self._$pre.css('display',self.layout.display);
+			self._jQuerypre.css('display',self.layout.display);
 
 			if(self._changingClass && self.animation.animateChangeLayout){
-				self._$container
+				self._jQuerycontainer
 					.removeClass(self._newClass)
 					.addClass(self.layout.containerClass);
 			}
@@ -1169,19 +1169,19 @@
 			self._execAction('_prepTargets', 0);
 
 			if(self.animation.animateResizeContainer){
-				self._$parent.css('height',self._startHeight+'px');
+				self._jQueryparent.css('height',self._startHeight+'px');
 			}
 
-			for(var i = 0; i < self._$toShow.length; i++){
-				var el = self._$toShow[i],
-					$el = $(el);
+			for(var i = 0; i < self._jQuerytoShow.length; i++){
+				var el = self._jQuerytoShow[i],
+					jQueryel = jQuery(el);
 
 				el.style.opacity = self.effects.opacity;
 				el.style.display = (self._changingLayout && self.animation.animateChangeLayout) ?
 					self._newDisplay :
 					self.layout.display;
 
-				$el.css(transformCSS._in);
+				jQueryel.css(transformCSS._in);
 
 				if(self.animation.animateResizeTargets){
 					el.style.width = el.dataset.finalWidth+'px';
@@ -1191,16 +1191,16 @@
 				}
 			}
 
-			for(var i = 0; i < self._$pre.length; i++){
-				var el = self._$pre[i],
-					$el = $(el),
+			for(var i = 0; i < self._jQuerypre.length; i++){
+				var el = self._jQuerypre[i],
+					jQueryel = jQuery(el),
 					translate = {
 						x: el.dataset.origPosX - el.dataset.interPosX,
 						y: el.dataset.origPosY - el.dataset.interPosY
 					},
 					transformCSS = self._getPrefixedCSS('transform','translate('+translate.x+'px,'+translate.y+'px)');
 
-				$el.css(transformCSS);
+				jQueryel.css(transformCSS);
 
 				if(self.animation.animateResizeTargets){
 					el.style.width = el.dataset.origWidth+'px';
@@ -1232,19 +1232,19 @@
 			self._targetsDone = 0;
 			self._targetsBound = 0;
 
-			self._$parent
+			self._jQueryparent
 				.css(self._getPrefixedCSS('perspective', self.animation.perspectiveDistance+'px'))
 				.css(self._getPrefixedCSS('perspective-origin', self.animation.perspectiveOrigin));
 
 			if(self.animation.animateResizeContainer){
-				self._$parent
+				self._jQueryparent
 					.css(self._getPrefixedCSS('transition','height '+self.animation.duration+'ms ease'))
 					.css('height',self._newHeight+'px');
 			}
 
-			for(var i = 0; i < self._$toShow.length; i++){
-				var el = self._$toShow[i],
-					$el = $(el),
+			for(var i = 0; i < self._jQuerytoShow.length; i++){
+				var el = self._jQuerytoShow[i],
+					jQueryel = jQuery(el),
 					translate = {
 						x: el.dataset.finalPosX - el.dataset.interPosX,
 						y: el.dataset.finalPosY - el.dataset.interPosY
@@ -1268,17 +1268,17 @@
 				}
 
 				if(self.effects.transform || self.effects.opacity){
-					self._bindTargetDone($el);
+					self._bindTargetDone(jQueryel);
 				}
 
 				(self._ff && self._ff <= 20) ?
-					$el.css(toShowCSS) :
-					$el.css(self.effects.transition).css(toShowCSS);
+					jQueryel.css(toShowCSS) :
+					jQueryel.css(self.effects.transition).css(toShowCSS);
 			}
 
-			for(var i = 0; i < self._$pre.length; i++){
-				var el = self._$pre[i],
-					$el = $(el),
+			for(var i = 0; i < self._jQuerypre.length; i++){
+				var el = self._jQuerypre[i],
+					jQueryel = jQuery(el),
 					translate = {
 						x: el.dataset.finalPosX - el.dataset.interPosX,
 						y: el.dataset.finalPosY - el.dataset.interPosY
@@ -1289,11 +1289,11 @@
 					el.dataset.finalPosX === el.dataset.origPosX &&
 					el.dataset.finalPosY === el.dataset.origPosY
 				)){
-					self._bindTargetDone($el);
+					self._bindTargetDone(jQueryel);
 				}
 
-				$el.css(self._getPrefixedCSS('transition', 'all '+self.animation.duration+'ms '+self.animation.easing+' '+delay+'ms'));
-				$el.css(self._getPrefixedCSS('transform', 'translate('+translate.x+'px,'+translate.y+'px)'));
+				jQueryel.css(self._getPrefixedCSS('transition', 'all '+self.animation.duration+'ms '+self.animation.easing+' '+delay+'ms'));
+				jQueryel.css(self._getPrefixedCSS('transform', 'translate('+translate.x+'px,'+translate.y+'px)'));
 
 				if(self.animation.animateResizeTargets){
 					if(el.dataset.origWidth - el.dataset.finalWidth && el.dataset.finalWidth * 1){
@@ -1309,14 +1309,14 @@
 			}
 
 			if(self._changingClass){
-				self._$container
+				self._jQuerycontainer
 					.removeClass(self.layout.containerClass)
 					.addClass(self._newClass);
 			}
 
-			for(var i = 0; i < self._$toHide.length; i++){
-				var el = self._$toHide[i],
-					$el = $(el),
+			for(var i = 0; i < self._jQuerytoHide.length; i++){
+				var el = self._jQuerytoHide[i],
+					jQueryel = jQuery(el),
 					delay = self._getDelay(i),
 					toHideCSS = {};
 
@@ -1328,10 +1328,10 @@
 					toHideCSS.opacity = self.effects.opacity;
 				}
 
-				$el.css(self.effects.transition).css(toHideCSS);
+				jQueryel.css(self.effects.transition).css(toHideCSS);
 
 				if(self.effects.transform || self.effects.opacity){
-					self._bindTargetDone($el);
+					self._bindTargetDone(jQueryel);
 				};
 			}
 
@@ -1342,12 +1342,12 @@
 		/**
 		 * Bind Targets TransitionEnd
 		 * @since 2.0.0
-		 * @param {object} $el
+		 * @param {object} jQueryel
 		 */
 
-		_bindTargetDone: function($el){
+		_bindTargetDone: function(jQueryel){
 			var self = this,
-				el = $el[0];
+				el = jQueryel[0];
 
 			self._execAction('_bindTargetDone', 0, arguments);
 
@@ -1356,13 +1356,13 @@
 				el.dataset.bound = true;
 				self._targetsBound++;
 
-				$el.on('webkitTransitionEnd.mixItUp transitionend.mixItUp',function(e){
+				jQueryel.on('webkitTransitionEnd.mixItUp transitionend.mixItUp',function(e){
 					if(
 						(e.originalEvent.propertyName.indexOf('transform') > -1 ||
 						e.originalEvent.propertyName.indexOf('opacity') > -1) &&
-						$(e.originalEvent.target).is(self.selectors.target)
+						jQuery(e.originalEvent.target).is(self.selectors.target)
 					){
-						$el.off('.mixItUp');
+						jQueryel.off('.mixItUp');
 						el.dataset.bound = '';
 						self._targetDone();
 					}
@@ -1400,24 +1400,24 @@
 					'transform opacity width height margin-bottom margin-right' :
 					'transform opacity',
 				unBrake = function(){
-					self._$targets.removeStyle('transition', self._prefix);
+					self._jQuerytargets.removeStyle('transition', self._prefix);
 				};
 
 			self._execAction('_cleanUp', 0);
 
 			!self._changingLayout ?
-				self._$show.css('display',self.layout.display) :
-				self._$show.css('display',self._newDisplay);
+				self._jQueryshow.css('display',self.layout.display) :
+				self._jQueryshow.css('display',self._newDisplay);
 
-			self._$targets.css(self._brake);
+			self._jQuerytargets.css(self._brake);
 
-			self._$targets
+			self._jQuerytargets
 				.removeStyle(targetStyles, self._prefix)
 				.removeAttr('data-inter-pos-x data-inter-pos-y data-final-pos-x data-final-pos-y data-orig-pos-x data-orig-pos-y data-orig-height data-orig-width data-final-height data-final-width data-inter-width data-inter-height data-orig-margin-right data-orig-margin-bottom data-inter-margin-right data-inter-margin-bottom data-final-margin-right data-final-margin-bottom');
 
-			self._$hide.removeStyle('display');
+			self._jQueryhide.removeStyle('display');
 
-			self._$parent.removeStyle('height transition perspective-distance perspective perspective-origin-x perspective-origin-y perspective-origin perspectiveOrigin', self._prefix);
+			self._jQueryparent.removeStyle('height transition perspective-distance perspective perspective-origin-x perspective-origin-y perspective-origin perspectiveOrigin', self._prefix);
 
 			if(self._sorting){
 				self._printSort();
@@ -1432,7 +1432,7 @@
 				}
 
 				if(self._changingClass){
-					self._$parent.removeClass(self.layout.containerClass).addClass(self._newClass);
+					self._jQueryparent.removeClass(self.layout.containerClass).addClass(self._newClass);
 					self.layout.containerClass = self._newClass;
 					self._changingClass = false;
 				}
@@ -1445,11 +1445,11 @@
 			self._buildState();
 
 			if(self._state.fail){
-				self._$container.addClass(self.layout.containerClassFail);
+				self._jQuerycontainer.addClass(self.layout.containerClassFail);
 			}
 
-			self._$show = $();
-			self._$hide = $();
+			self._jQueryshow = jQuery();
+			self._jQueryhide = jQuery();
 
 			if(window.requestAnimationFrame){
 				requestAnimationFrame(unBrake);
@@ -1465,16 +1465,16 @@
 				self.callbacks.onMixEnd.call(self._domNode, self._state, self);
 			}
 
-			self._$container.trigger('mixEnd', [self._state, self]);
+			self._jQuerycontainer.trigger('mixEnd', [self._state, self]);
 
 			if(self._state.fail){
 				(typeof self.callbacks.onMixFail === 'function') && self.callbacks.onMixFail.call(self._domNode, self._state, self);
-				self._$container.trigger('mixFail', [self._state, self]);
+				self._jQuerycontainer.trigger('mixFail', [self._state, self]);
 			}
 
 			if(self._loading){
 				(typeof self.callbacks.onMixLoad === 'function') && self.callbacks.onMixLoad.call(self._domNode, self._state, self);
-				self._$container.trigger('mixLoad', [self._state, self]);
+				self._jQuerycontainer.trigger('mixLoad', [self._state, self]);
 			}
 
 			if(self._queue.length){
@@ -1570,7 +1570,7 @@
 			var self = this,
 				output = {
 					index: 0,
-					$object: $(),
+					jQueryobject: jQuery(),
 					multiMix: {filter: self._state.activeFilter},
 					callback: null
 				};
@@ -1580,10 +1580,10 @@
 
 				if(typeof arg === 'number'){
 					output.index = arg;
-				} else if(typeof arg === 'object' && arg instanceof $){
-					output.$object = arg;
+				} else if(typeof arg === 'object' && arg instanceof jQuery){
+					output.jQueryobject = arg;
 				} else if(typeof arg === 'object' && self._helpers._isElement(arg)){
-					output.$object = $(arg);
+					output.jQueryobject = jQuery(arg);
 				} else if(typeof arg === 'object' && arg !== null){
 					output.multiMix = arg;
 				} else if(typeof arg === 'boolean' && !arg){
@@ -1789,7 +1789,7 @@
 					}
 				}
 
-				self._$targets.css(self._brake);
+				self._jQuerytargets.css(self._brake);
 
 				self._goMix(args.animate ^ self.animation.enable ? args.animate : self.animation.enable);
 
@@ -1807,7 +1807,7 @@
 					if(typeof self.callbacks.onMixBusy === 'function'){
 						self.callbacks.onMixBusy.call(self._domNode, self._state, self);
 					}
-					self._$container.trigger('mixBusy', [self._state, self]);
+					self._jQuerycontainer.trigger('mixBusy', [self._state, self]);
 
 					self._execAction('multiMixBusy', 1, arguments);
 				}
@@ -1828,26 +1828,26 @@
 				target = (function(){
 					self._refresh();
 
-					if(self._$targets.length){
-						return (args.index < self._$targets.length || !self._$targets.length) ?
-							self._$targets[args.index] :
-							self._$targets[self._$targets.length-1].nextElementSibling;
+					if(self._jQuerytargets.length){
+						return (args.index < self._jQuerytargets.length || !self._jQuerytargets.length) ?
+							self._jQuerytargets[args.index] :
+							self._jQuerytargets[self._jQuerytargets.length-1].nextElementSibling;
 					} else {
-						return self._$parent[0].children[0];
+						return self._jQueryparent[0].children[0];
 					}
 				})();
 
 			self._execAction('insert', 0, arguments);
 
-			if(args.$object){
-				for(var i = 0; i < args.$object.length; i++){
-					var el = args.$object[i];
+			if(args.jQueryobject){
+				for(var i = 0; i < args.jQueryobject.length; i++){
+					var el = args.jQueryobject[i];
 
 					frag.appendChild(el);
 					frag.appendChild(document.createTextNode(' '));
 				}
 
-				self._$parent[0].insertBefore(frag, target);
+				self._jQueryparent[0].insertBefore(frag, target);
 			}
 
 			self._execAction('insert', 1, arguments);
@@ -1867,7 +1867,7 @@
 			var self = this,
 				args = self._parseInsertArgs(arguments);
 
-			self.insert(0, args.$object, args.multiMix, args.callback);
+			self.insert(0, args.jQueryobject, args.multiMix, args.callback);
 		},
 
 		/**
@@ -1880,7 +1880,7 @@
 			var self = this,
 				args = self._parseInsertArgs(arguments);
 
-			self.insert(self._state.totalTargets, args.$object, args.multiMix, args.callback);
+			self.insert(self._state.totalTargets, args.jQueryobject, args.multiMix, args.callback);
 		},
 
 		/**
@@ -1923,7 +1923,7 @@
 
 			self._execAction('setOptions', 0, arguments);
 
-			typeof config === 'object' && $.extend(true, self, config);
+			typeof config === 'object' && jQuery.extend(true, self, config);
 
 			self._execAction('setOptions', 1, arguments);
 		},
@@ -1959,18 +1959,18 @@
 
 		destroy: function(hideAll){
 			var self = this,
-				filters = $.MixItUp.prototype._bound._filter,
-				sorts = $.MixItUp.prototype._bound._sort;
+				filters = jQuery.MixItUp.prototype._bound._filter,
+				sorts = jQuery.MixItUp.prototype._bound._sort;
 
 			self._execAction('destroy', 0, arguments);
 
-			self._$body
-				.add($(self.selectors.sort))
-				.add($(self.selectors.filter))
+			self._jQuerybody
+				.add(jQuery(self.selectors.sort))
+				.add(jQuery(self.selectors.filter))
 				.off('.mixItUp');
 
-			for(var i = 0; i < self._$targets.length; i++){
-				var target = self._$targets[i];
+			for(var i = 0; i < self._jQuerytargets.length; i++){
+				var target = self._jQuerytargets[i];
 
 				hideAll && (target.style.display = '');
 
@@ -1991,7 +1991,7 @@
 				delete sorts[self.selectors.sort];
 			}
 
-			delete $.MixItUp.prototype._instances[self._id];
+			delete jQuery.MixItUp.prototype._instances[self._id];
 		}
 
 	};
@@ -2002,15 +2002,15 @@
 	/**
 	 * jQuery .mixItUp() method
 	 * @since 2.0.0
-	 * @extends $.fn
+	 * @extends jQuery.fn
 	 */
 
-	$.fn.mixItUp = function(){
+	jQuery.fn.mixItUp = function(){
 		var args = arguments,
 			dataReturn = [],
 			eachReturn,
 			_instantiate = function(domNode, settings){
-				var instance = new $.MixItUp(),
+				var instance = new jQuery.MixItUp(),
 					rand = function(){
 						return ('00000'+(Math.random()*16777216<<0).toString(16)).substr(-6).toUpperCase();
 					};
@@ -2029,7 +2029,7 @@
 
 		eachReturn = this.each(function(){
 			if(args && typeof args[0] === 'string'){
-				var instance = $.MixItUp.prototype._instances[this.id];
+				var instance = jQuery.MixItUp.prototype._instances[this.id];
 				if(args[0] === 'isLoaded'){
 					dataReturn.push(instance ? true : false);
 				} else {
@@ -2051,10 +2051,10 @@
 	/**
 	 * jQuery .removeStyle() method
 	 * @since 2.0.0
-	 * @extends $.fn
+	 * @extends jQuery.fn
 	 */
 
-	$.fn.removeStyle = function(style, prefix){
+	jQuery.fn.removeStyle = function(style, prefix){
 		prefix = prefix ? prefix : '';
 
 		return this.each(function(){
@@ -2068,13 +2068,13 @@
 							var prop = styles[i];
 							break;
 						case 1:
-							var prop = $.MixItUp.prototype._helpers._camelCase(prop);
+							var prop = jQuery.MixItUp.prototype._helpers._camelCase(prop);
 							break;
 						case 2:
 							var prop = prefix+styles[i];
 							break;
 						case 3:
-							var prop = $.MixItUp.prototype._helpers._camelCase(prefix+styles[i]);
+							var prop = jQuery.MixItUp.prototype._helpers._camelCase(prefix+styles[i]);
 					}
 
 					if(

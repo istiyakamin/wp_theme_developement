@@ -1,88 +1,119 @@
 <?php get_header(); ?>
     
-    <div class="page_title_banner blog_sidebar_title_bg">
+    <div class="page_title_banner banner_blog_single_title_bg">
         <div class="page_title_banner_overlay"></div>
         <div class="container">
             <div class="page_title_banner_text text-center">
-                <h2 class="banner_effect">Blog Sidebar</h2>
+                <h2 class="banner_effect">Blog single</h2>
                 <ul class="breadcrumb">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Pages</a></li>
-                    <li class="active">Blog sidebar</li>
+                    <li class="active">blog single</li>
                 </ul>
             </div>
         </div><!--container-->
     </div><!-- page_title_banner -->
+	
+   
 
     <div class="blog_page_area">
         <div class="container">
             <div class="row">
-            
-            
                 <div class="col-md-8">
-                
+
                     <div class="blog_left_side_area">
-
                         <?php 
-                        if(have_posts()) :
+                            if(have_posts()) :
                             while (have_posts()) : the_post();
-                        
-
 
                          ?>
-                        <div class="blog_left_single_item">
-                            <div class="blog_pic image_fulwidth">
-                                <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail() ?></a>
-                                <h4 class="date_position"><?php echo get_the_date("j F Y"); ?></h4>
+                        <div class="blog_pic image_fulwidth">
+                            <?php get_the_post_thumbnail(); ?>
+                            <h4 class="date_position"><?php echo get_the_date(); ?></h4>
+                        </div>
+
+                        <div class="blog_left_single_content blog_single_content para_default">
+                            <h3><?php echo get_the_title(); ?></h3>
+                            
+                            <p>
+                                <?php the_content(); ?>
+                            </p>
+                          
+
+                        </div>
+
+                        <?php 
+                            endwhile;
+                        endif;
+                        wp_reset_postdata();
+
+                         ?>
+
+                        <div class="blog_tag">
+                            <?php the_tags(' ', ' ', ' ') ?>
+                        </div>
+
+                        <div class="share_blog_single_in_social">
+                            <h4>
+                               
+
+
+                                <span>Share</span> 
+                                <a href="http://www.facebook.com/sharer.php?u=<?php the_permalink();?>" title="Share on Facebook." target="blank"><i class="fa fa-facebook"></i></a>
+                                <a href="http://twitter.com/home/?status=<?php the_title(); ?> - <?php the_permalink(); ?>" target="blank"><i class="fa fa-twitter"></i></a>
+                                <a href="https://plus.google.com/share?url=<?php the_permalink(); ?>" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus"></i></a>
+                                <a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=<?php the_title(); ?>&amp;url=<?php the_permalink(); ?>" title="Share on LinkedIn" target="blank"><i class="fa fa-linkedin"></i></a>
+                            </h4>
+                        </div>
+						
+			             <div class="content_blog_a fix">
+							<div class="e_blog_A">
+								 <?php echo get_avatar(get_the_author_meta('ID'),100); ?>
+							</div>
+							<div class="blog_a_text">
+								<h5><a href="<?php echo get_author_posts_url(get_the_author_meta('ID'),get_the_author_meta('user_nicename')) ?>"><?php the_author(); ?></a></h5>
+								<p><?php the_author_meta('description'); ?></p>
+							</div>
+						</div>
+
+                        <div class="consultency_comments_form">
+                            <h2 class="comments_title">Leave a Reply</h2>
+                            <div class="row">
+                                <form action="#" method="post">
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="E-mail*">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <input type="url" class="form-control" placeholder="Website">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <textarea name="message" class="form-control" rows="4" placeholder="Your Comment"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="send_me_ph">
+                                                <a class="submit_btn_quick_contact" href="#">Submit Now</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-
-                            <div class="blog_left_single_content para_default">
-                                <h3><a href="<?php the_permalink(); ?>"><?php echo get_the_title(); ?></a></h3>
-                                <p><?php echo wp_trim_words(get_the_content(), 40); ?></p>
-                            </div>
-                        </div><!-- blog_left_single_item -->
-
-                    <?php 
-                    endwhile;
-                    else :
-                        get_template_part('template-parts/page/content', 'none');
-                    endif;
-                    wp_reset_postdata();
-                     ?>
-                        
-                        <div class="blog_pagination">
-                            <nav>
-                                <ul class="pagination pagination-lg">
-
-
-                                <?php 
-                                    the_posts_pagination( array(
-                                        'mid_size'  => 2,
-                                        'prev_text' => __( 'back', 'textdomain' ),
-                                        'next_text' => __('<i class="flaticon-right-arrow"></i>', 'textdomain' )
-                                    ) );
-                                 ?>
-                                
-                                   <!--  <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-
-                                    <li class="page-item">
-                                        <a class="page-link" href="#"><i class="flaticon-right-arrow"></i></a>
-                                    </li> -->
-                                </ul>
-                            </nav>
                         </div>
                     </div><!-- blog_left_side_area -->
-                    
                 </div><!-- col-md-8 -->
-                
-                
+
                 <div class="col-md-4">
                     <div class="blog_right_side_area">
-
-                        <?php dynamic_sidebar( 'right-sidebar' ) ?>
-                        
-
                         <div class="blog_right_widget">
                             <div class="blog_widget">
                                 <form action="#" method="post" class="blog_search">
@@ -91,7 +122,6 @@
                                 </form>
                             </div>
                         </div><!-- blog_right_widget  -->
-                        
                         
                         <div class="blog_right_widget">
                             <div class="blog_widget">
@@ -114,37 +144,37 @@
                                 <h3 class="blog_widget_title">Project</h3>
                                 <div class="project_div clearfix">
                                     <figure class="image">
-                                        <a href="<?php echo get_template_directory_uri(); ?>/images/blog_project_item_01.jpg" data-fancybox="gallery">
-                                            <img src="<?php echo get_template_directory_uri(); ?>/images/blog_project_item_01.jpg" alt="images">
+                                        <a href="images/blog_project_item_01.jpg" data-fancybox="gallery">
+                                            <img src="images/blog_project_item_01.jpg" alt="images">
                                         </a>
                                     </figure>
 
                                     <figure class="image">
-                                        <a href="<?php echo get_template_directory_uri(); ?>//blog_project_item_02.jpg" data-fancybox="gallery">
-                                            <img src="<?php echo get_template_directory_uri(); ?>/images/blog_project_item_02.jpg" alt="images">
+                                        <a href="images/blog_project_item_02.jpg" data-fancybox="gallery">
+                                            <img src="images/blog_project_item_02.jpg" alt="images">
                                         </a>
                                     </figure>
 
                                     <figure class="image">
-                                        <a href="<?php echo get_template_directory_uri(); ?>/images/blog_project_item_03.jpg" data-fancybox="gallery">
-                                            <img src="<?php echo get_template_directory_uri(); ?>/images/blog_project_item_03.jpg" alt="images">
+                                        <a href="images/blog_project_item_03.jpg" data-fancybox="gallery">
+                                            <img src="images/blog_project_item_03.jpg" alt="images">
                                         </a>
                                     </figure>
 
                                     <figure class="image">
-                                        <a href="<?php echo get_template_directory_uri(); ?>/images/blog_project_item_04.jpg" data-fancybox="gallery">
-                                            <img src="<?php echo get_template_directory_uri(); ?>/images/blog_project_item_04.jpg" alt="images">
+                                        <a href="images/blog_project_item_04.jpg" data-fancybox="gallery">
+                                            <img src="images/blog_project_item_04.jpg" alt="images">
                                         </a>
                                     </figure>
 
                                     <figure class="image">
-                                        <a href="<?php echo get_template_directory_uri(); ?>/images/blog_project_item_05.jpg" data-fancybox="gallery">
-                                            <img src="<?php echo get_template_directory_uri(); ?>/images/blog_project_item_05.jpg" alt="images">
+                                        <a href="images/blog_project_item_05.jpg" data-fancybox="gallery">
+                                            <img src="images/blog_project_item_05.jpg" alt="images">
                                         </a>
                                     </figure>
 
                                     <figure class="image">
-                                        <a href="<?php echo get_template_directory_uri(); ?>/images/blog_project_item_06.jpg" data-fancybox="gallery">
+                                        <a href="images/blog_project_item_06.jpg" data-fancybox="gallery">
                                             <img src="images/blog_project_item_06.jpg" alt="images">
                                         </a>
                                     </figure>
@@ -184,9 +214,9 @@
                                 </form>
                             </div>
                         </div><!-- blog_right_widget  -->
-                    </div></div>
+                    </div>
                 </div><!-- col-md-4 -->
-            </div><!-- row -->
+            </div><!-- row -->  
         </div><!-- container -->
     </div><!-- blog_page_area -->
 <?php get_footer() ?>

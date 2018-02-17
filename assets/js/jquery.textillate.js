@@ -6,15 +6,15 @@
  * Copyright (C) 2012-2013 Jordan Schroter
  */
 
-(function ($) {
+(function (jQuery) {
   "use strict";
 
   function isInEffect (effect) {
-    return /In/.test(effect) || $.inArray(effect, $.fn.textillate.defaults.inEffects) >= 0;
+    return /In/.test(effect) || jQuery.inArray(effect, jQuery.fn.textillate.defaults.inEffects) >= 0;
   };
 
   function isOutEffect (effect) {
-    return /Out/.test(effect) || $.inArray(effect, $.fn.textillate.defaults.outEffects) >= 0;
+    return /Out/.test(effect) || jQuery.inArray(effect, jQuery.fn.textillate.defaults.outEffects) >= 0;
   };
 
 
@@ -30,7 +30,7 @@
 
     if (!attrs.length) return data;
 
-    $.each(attrs, function (i, attr) {
+    jQuery.each(attrs, function (i, attr) {
       var nodeName = attr.nodeName.replace(/delayscale/, 'delayScale');
       if (/^data-in-*/.test(nodeName)) {
         data.in = data.in || {};
@@ -51,37 +51,37 @@
       return o;
   }
 
-  function animate ($t, effect, cb) {
-    $t.addClass('animated ' + effect)
+  function animate (jQueryt, effect, cb) {
+    jQueryt.addClass('animated ' + effect)
       .css('visibility', 'visible')
       .show();
 
-    $t.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-        $t.removeClass('animated ' + effect);
+    jQueryt.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+        jQueryt.removeClass('animated ' + effect);
         cb && cb();
     });
   }
 
-  function animateTokens ($tokens, options, cb) {
+  function animateTokens (jQuerytokens, options, cb) {
     var that = this
-      , count = $tokens.length;
+      , count = jQuerytokens.length;
 
     if (!count) {
       cb && cb();
       return;
     }
 
-    if (options.shuffle) $tokens = shuffle($tokens);
-    if (options.reverse) $tokens = $tokens.toArray().reverse();
+    if (options.shuffle) jQuerytokens = shuffle(jQuerytokens);
+    if (options.reverse) jQuerytokens = jQuerytokens.toArray().reverse();
 
-    $.each($tokens, function (i, t) {
-      var $token = $(t);
+    jQuery.each(jQuerytokens, function (i, t) {
+      var jQuerytoken = jQuery(t);
 
       function complete () {
         if (isInEffect(options.effect)) {
-          $token.css('visibility', 'visible');
+          jQuerytoken.css('visibility', 'visible');
         } else if (isOutEffect(options.effect)) {
-          $token.css('visibility', 'hidden');
+          jQuerytoken.css('visibility', 'hidden');
         }
         count -= 1;
         if (!count && cb) cb();
@@ -89,34 +89,34 @@
 
       var delay = options.sync ? options.delay : options.delay * i * options.delayScale;
 
-      $token.text() ?
-        setTimeout(function () { animate($token, options.effect, complete) }, delay) :
+      jQuerytoken.text() ?
+        setTimeout(function () { animate(jQuerytoken, options.effect, complete) }, delay) :
         complete();
     });
   };
 
   var Textillate = function (element, options) {
     var base = this
-      , $element = $(element);
+      , jQueryelement = jQuery(element);
 
     base.init = function () {
-      base.$texts = $element.find(options.selector);
+      base.jQuerytexts = jQueryelement.find(options.selector);
 
-      if (!base.$texts.length) {
-        base.$texts = $('<ul class="texts"><li>' + $element.html() + '</li></ul>');
-        $element.html(base.$texts);
+      if (!base.jQuerytexts.length) {
+        base.jQuerytexts = jQuery('<ul class="texts"><li>' + jQueryelement.html() + '</li></ul>');
+        jQueryelement.html(base.jQuerytexts);
       }
 
-      base.$texts.hide();
+      base.jQuerytexts.hide();
 
-      base.$current = $('<span>')
-        .html(base.$texts.find(':first-child').html())
-        .prependTo($element);
+      base.jQuerycurrent = jQuery('<span>')
+        .html(base.jQuerytexts.find(':first-child').html())
+        .prependTo(jQueryelement);
 
       if (isInEffect(options.in.effect)) {
-        base.$current.css('visibility', 'hidden');
+        base.jQuerycurrent.css('visibility', 'hidden');
       } else if (isOutEffect(options.out.effect)) {
-        base.$current.css('visibility', 'visible');
+        base.jQuerycurrent.css('visibility', 'visible');
       }
 
       base.setOptions(options);
@@ -133,30 +133,30 @@
     };
 
     base.triggerEvent = function (name) {
-      var e = $.Event(name + '.tlt');
-      $element.trigger(e, base);
+      var e = jQuery.Event(name + '.tlt');
+      jQueryelement.trigger(e, base);
       return e;
     };
 
     base.in = function (index, cb) {
       index = index || 0;
 
-      var $elem = base.$texts.find(':nth-child(' + ((index||0) + 1) + ')')
-        , options = $.extend(true, {}, base.options, $elem.length ? getData($elem[0]) : {})
-        , $tokens;
+      var jQueryelem = base.jQuerytexts.find(':nth-child(' + ((index||0) + 1) + ')')
+        , options = jQuery.extend(true, {}, base.options, jQueryelem.length ? getData(jQueryelem[0]) : {})
+        , jQuerytokens;
 
-      $elem.addClass('current');
+      jQueryelem.addClass('current');
 
       base.triggerEvent('inAnimationBegin');
-      $element.attr('data-active', $elem.data('id'));
+      jQueryelement.attr('data-active', jQueryelem.data('id'));
 
-      base.$current
-        .html($elem.html())
+      base.jQuerycurrent
+        .html(jQueryelem.html())
         .lettering('words');
 
       // split words to individual characters if token type is set to 'char'
       if (base.options.type == "char") {
-        base.$current.find('[class^="word"]')
+        base.jQuerycurrent.find('[class^="word"]')
             .css({
               'display': 'inline-block',
               // fix for poor ios performance
@@ -165,22 +165,22 @@
               '-o-transform': 'translate3d(0,0,0)',
               'transform': 'translate3d(0,0,0)'
             })
-            .each(function () { $(this).lettering() });
+            .each(function () { jQuery(this).lettering() });
       }
 
-      $tokens = base.$current
+      jQuerytokens = base.jQuerycurrent
         .find('[class^="' + base.options.type + '"]')
         .css('display', 'inline-block');
 
       if (isInEffect(options.in.effect)) {
-        $tokens.css('visibility', 'hidden');
+        jQuerytokens.css('visibility', 'hidden');
       } else if (isOutEffect(options.in.effect)) {
-        $tokens.css('visibility', 'visible');
+        jQuerytokens.css('visibility', 'visible');
       }
 
       base.currentIndex = index;
 
-      animateTokens($tokens, options.in, function () {
+      animateTokens(jQuerytokens, options.in, function () {
         base.triggerEvent('inAnimationEnd');
         if (options.in.callback) options.in.callback();
         if (cb) cb(base);
@@ -188,16 +188,16 @@
     };
 
     base.out = function (cb) {
-      var $elem = base.$texts.find(':nth-child(' + ((base.currentIndex||0) + 1) + ')')
-        , $tokens = base.$current.find('[class^="' + base.options.type + '"]')
-        , options = $.extend(true, {}, base.options, $elem.length ? getData($elem[0]) : {})
+      var jQueryelem = base.jQuerytexts.find(':nth-child(' + ((base.currentIndex||0) + 1) + ')')
+        , jQuerytokens = base.jQuerycurrent.find('[class^="' + base.options.type + '"]')
+        , options = jQuery.extend(true, {}, base.options, jQueryelem.length ? getData(jQueryelem[0]) : {})
 
       base.triggerEvent('outAnimationBegin');
 
-      animateTokens($tokens, options.out, function () {
-        $elem.removeClass('current');
+      animateTokens(jQuerytokens, options.out, function () {
+        jQueryelem.removeClass('current');
         base.triggerEvent('outAnimationEnd');
-        $element.removeAttr('data-active');
+        jQueryelement.removeAttr('data-active');
         if (options.out.callback) options.out.callback();
         if (cb) cb(base);
       });
@@ -209,7 +209,7 @@
 
         (function run (index) {
           base.in(index, function () {
-            var length = base.$texts.children().length;
+            var length = base.jQuerytexts.children().length;
 
             index += 1;
 
@@ -240,14 +240,14 @@
     base.init();
   }
 
-  $.fn.textillate = function (settings, args) {
+  jQuery.fn.textillate = function (settings, args) {
     return this.each(function () {
-      var $this = $(this)
-        , data = $this.data('textillate')
-        , options = $.extend(true, {}, $.fn.textillate.defaults, getData(this), typeof settings == 'object' && settings);
+      var jQuerythis = jQuery(this)
+        , data = jQuerythis.data('textillate')
+        , options = jQuery.extend(true, {}, jQuery.fn.textillate.defaults, getData(this), typeof settings == 'object' && settings);
 
       if (!data) {
-        $this.data('textillate', (data = new Textillate(this, options)));
+        jQuerythis.data('textillate', (data = new Textillate(this, options)));
       } else if (typeof settings == 'string') {
         data[settings].apply(data, [].concat(args));
       } else {
@@ -256,7 +256,7 @@
     })
   };
 
-  $.fn.textillate.defaults = {
+  jQuery.fn.textillate.defaults = {
     selector: '.texts',
     loop: false,
     minDisplayTime: 2000,

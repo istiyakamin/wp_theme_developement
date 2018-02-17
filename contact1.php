@@ -1,14 +1,14 @@
 <?php
  
-if(isset($_POST['email'])) {
+if(isset(jQuery_POST['email'])) {
  
     // EDIT THE 2 LINES BELOW AS REQUIRED
  
-    $email_to = "helloxpart@gmail.com";
+    jQueryemail_to = "helloxpart@gmail.com";
  
-    $email_subject = $_POST['subject'];
+    jQueryemail_subject = jQuery_POST['subject'];
 
-    function died($error) {
+    function died(jQueryerror) {
  
         // your error code can go here
  
@@ -16,7 +16,7 @@ if(isset($_POST['email'])) {
  
         echo "These errors appear below.<br /><br />";
  
-        echo $error."<br /><br />";
+        echo jQueryerror."<br /><br />";
  
         echo "Please go back and fix these errors.<br /><br />";
  
@@ -26,74 +26,74 @@ if(isset($_POST['email'])) {
 
     // validation expected data exists
  
-    if(!isset($_POST['name']) ||
+    if(!isset(jQuery_POST['name']) ||
  
-        !isset($_POST['email']) || 
+        !isset(jQuery_POST['email']) || 
  
-        !isset($_POST['comments'])) {
+        !isset(jQuery_POST['comments'])) {
  
         died('We are sorry, but there appears to be a problem with the form you submitted.');       
  
     }
 
-    $field_name = $_POST['name']; // required
+    jQueryfield_name = jQuery_POST['name']; // required
  
-    $field_subject = $_POST['subject']; // required
+    jQueryfield_subject = jQuery_POST['subject']; // required
  
-    $email_from = $_POST['email']; // required
+    jQueryemail_from = jQuery_POST['email']; // required
  
-    $comments = $_POST['comments']; // required
+    jQuerycomments = jQuery_POST['comments']; // required
 
-    $error_message = "";
+    jQueryerror_message = "";
  
-    $email_exp = '/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/';
+    jQueryemail_exp = '/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}jQuery/';
  
-  if(!preg_match($email_exp,$email_from)) {
+  if(!preg_match(jQueryemail_exp,jQueryemail_from)) {
  
-    $error_message .= 'The Email Address you entered does not appear to be valid.<br />';
+    jQueryerror_message .= 'The Email Address you entered does not appear to be valid.<br />';
  
   }
  
-    $string_exp = "/^[A-Za-z .'-]+$/";
+    jQuerystring_exp = "/^[A-Za-z .'-]+jQuery/";
  
-  if(!preg_match($string_exp,$field_name)) {
+  if(!preg_match(jQuerystring_exp,jQueryfield_name)) {
  
-    $error_message .= 'The First Name you entered does not appear to be valid.<br />';
+    jQueryerror_message .= 'The First Name you entered does not appear to be valid.<br />';
  
   }
  
 
  
-  if(strlen($comments) < 2) {
+  if(strlen(jQuerycomments) < 2) {
  
-    $error_message .= 'The Comments you entered do not appear to be valid.<br />';
- 
-  }
- 
-  if(strlen($error_message) > 0) {
- 
-    died($error_message);
+    jQueryerror_message .= 'The Comments you entered do not appear to be valid.<br />';
  
   }
  
-    function clean_string($string) {
+  if(strlen(jQueryerror_message) > 0) {
  
-      $bad = array("content-type","bcc:","to:","cc:","href");
+    died(jQueryerror_message);
  
-      return str_replace($bad,"",$string);
+  }
+ 
+    function clean_string(jQuerystring) {
+ 
+      jQuerybad = array("content-type","bcc:","to:","cc:","href");
+ 
+      return str_replace(jQuerybad,"",jQuerystring);
  
     }
-    $email_message .= " ".clean_string($comments)."\n";
+    jQueryemail_message .= " ".clean_string(jQuerycomments)."\n";
  
 // create email headers
  
-$headers = 'From: '.$email_from."\r\n".
+jQueryheaders = 'From: '.jQueryemail_from."\r\n".
  
-'Reply-To: '.$email_from."\r\n" .
+'Reply-To: '.jQueryemail_from."\r\n" .
  
 'X-Mailer: PHP/' . phpversion();
  
-@mail($email_to, $email_message, $headers);  
+@mail(jQueryemail_to, jQueryemail_message, jQueryheaders);  
  
 ?>
  
