@@ -21,7 +21,7 @@
 </head>
 <body>
     <!--Start Preloader-->
-   <!--  <div class="preloader">
+    <div class="preloader">
         <div class="preloader-inner-area">
             <div class="loader-overlay">
                 <div class="l-preloader">
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-    </div>  -->
+    </div> 
     <!--End Preloader-->
 
     <header id="header" class="header_areaa">

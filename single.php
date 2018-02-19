@@ -77,6 +77,14 @@
 							</div>
 						</div>
 
+                        <?php 
+                        
+                            if ( comments_open() || get_comments_number() ) :
+                                comments_template();
+                            endif;
+
+                         ?>
+
                         <div class="consultency_comments_form">
                             <h2 class="comments_title">Leave a Reply</h2>
                             <div class="row">
