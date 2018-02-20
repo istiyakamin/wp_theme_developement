@@ -206,13 +206,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="looking_for_left para_default">
-                        <h3><?php echo cs_get_option('fields_1'); ?></h3>
-                        <p><?php echo cs_get_option('fields_2'); ?></p>
+                        <h3 style="color:<?php echo esc_attr(cs_get_option('fields_4')); ?>"><?php echo esc_html( cs_get_option('fields_1') ); ?></h3>
+                        <p><?php echo esc_html( cs_get_option('fields_2') ); ?></p>
                         </div>
                 </div>
                 <div class="col-md-6">
                     <div class="looking_for_right image_fulwidth wow fadeInRight" data-wow-delay="300ms">
-                        <img src="<?php echo wp_get_attachment_image_src(cs_get_option('fields_3'),'full')[0]; ?>" alt="images">
+                        <img src="<?php echo esc_url(wp_get_attachment_image_src(cs_get_option('fields_3'),'full')[0]); ?>" alt="images">
                     </div>
                 </div>
             </div><!--row -->

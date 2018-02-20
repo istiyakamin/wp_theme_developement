@@ -45,6 +45,12 @@ $options[]      = array(
       'type'    => 'image',
       'title'   => 'Select Right Image ',
     ),
+
+    array(
+      'id'      => 'fields_4',
+      'type'    => 'color_picker',
+      'title'   => 'Select Title Color ',
+    ),
   )
 );
 
