@@ -100,7 +100,7 @@ if ( post_password_required() ) {
 
                 '<label for="comment">' . __( 'Let us know what you have to say:' ) . '</label>' .
 
-                '<textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>' .
+                '<textarea id="comment" name="comment" cols="45" rows="8" -required="true"></textarea>' .
 
                 '</p>',
 

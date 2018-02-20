@@ -54,6 +54,53 @@ $options[]      = array(
   )
 );
 
+
+// second SEction
+
+$options[] = array(
+  'name'        => 'section_two',
+  'title'       => 'Section two',
+  'icon'        => 'fa fa-star',
+  'fields'       => array(
+      array(
+        'id'          => 'our_service',
+        'type'        => 'text',
+        'title'       => 'Title TExt',
+      ),
+      array(
+        'id'              => 'section_group',
+        'type'            => 'group',
+        'title'           => 'Group Field',
+        'desc'            => 'Accordion title using the ID of the field.',
+        'button_title'    => 'Add New',
+        'accordion_title' => 'Add New Field',
+        'fields'          => array(
+
+          array(
+            'id'          => 'fields_5',
+            'type'        => 'image',
+            'title'       => 'image Upload',
+          ),
+
+          array(
+            'id'          => 'fields_6',
+            'type'        => 'text',
+            'title'       => 'Image Title',
+          ),
+
+          array(
+            'id'          => 'fields_7',
+            'type'        => 'textarea',
+            'title'       => 'Image Description',
+          ),
+
+        )
+      ),
+  )
+);
+
+
+
 // ----------------------------------------
 // a option section for options overview  -
 // ----------------------------------------

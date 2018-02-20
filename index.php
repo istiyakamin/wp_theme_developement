@@ -223,31 +223,24 @@
         <div class="container">
             <div class="row">
 				<div class="item single_blog_item_div para_default text-center">
-					<h2><a>Our Services</a></h2>
+					<h2><a><?php echo esc_html(cs_get_option('our_service')) ?></a></h2>
 				</div>
+
+                <?php 
+                    $groupsTwo = cs_get_option('section_group');
+                    foreach($groupsTwo as $group){
+                        
+                 ?>
+                    
                 <div class="col-md-4 col-sm-6">
                     <div class="choose_us_single para_default image_fulwidth text-center wow fadeInLeft" data-wow-delay="300ms">
-                        <img src="<?php echo get_template_directory_uri(); ?>/images/why_choos_us_01.jpg" alt="images">
-                        <h3>Consultancy services</h3>
-                        <p>Lorem ipsum dolor sit amet, elit. Donec nec ornare purus. Nulla non augue ut mi mollis eget id arcu. Rem autem voluptatem</p>
+                        <img src="<?php echo esc_url(wp_get_attachment_image_src($group['fields_5'],'full')[0]); ?>"" alt="images">
+                        <h3><?php echo esc_html($group['fields_6']) ?></h3>
+                        <p><?php echo esc_html($group['fields_7']) ?></p>
                     </div>
                 </div><!--col-md-4 -->
 
-                <div class="col-md-4 col-sm-6">
-                    <div class="choose_us_single para_default image_fulwidth text-center wow fadeInLeft" data-wow-delay="500ms">
-                        <img src="<?php echo get_template_directory_uri(); ?>/images/why_choos_us_02.jpg" alt="images">
-                        <h3>Consultancy services</h3>
-                        <p>Lorem ipsum dolor sit amet, elit. Donec nec ornare purus. Nulla non augue ut mi mollis eget id arcu. Rem autem voluptatem</p>
-                    </div>
-                </div><!--col-md-4 -->
-
-                <div class="col-md-4 col-sm-6">
-                    <div class="choose_us_single para_default image_fulwidth text-center wow fadeInLeft" data-wow-delay="700ms">
-                        <img src="<?php echo get_template_directory_uri(); ?>/images/why_choos_us_03.jpg" alt="images">
-                        <h3>Consultancy services</h3>
-                        <p>Lorem ipsum dolor sit amet, elit. Donec nec ornare purus. Nulla non augue ut mi mollis eget id arcu. Rem autem voluptatem</p>
-                    </div>
-                </div><!--col-md-4 -->
+                <?php } ?>
             </div><!--row -->
         </div><!--container-fluid -->
     </div><!--about_section_area -->
