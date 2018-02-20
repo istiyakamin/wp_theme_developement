@@ -20,6 +20,34 @@ $settings           = array(
 // ===============================================================================================
 $options        = array();
 
+// First Section
+
+$options[]      = array(
+  'name'        => 'section_one',
+  'title'       => 'Section One',
+  'icon'        => 'fa fa-facebook',
+  'fields'      =>array(
+    // 
+    array(
+      'id'      => 'fields_1',
+      'type'    => 'text',
+      'title'   => 'Section One Title',
+    ),
+
+    array(
+      'id'      => 'fields_2',
+      'type'    => 'textarea',
+      'title'   => 'Section one Description',
+    ),
+
+    array(
+      'id'      => 'fields_3',
+      'type'    => 'image',
+      'title'   => 'Select Right Image ',
+    ),
+  )
+);
+
 // ----------------------------------------
 // a option section for options overview  -
 // ----------------------------------------
