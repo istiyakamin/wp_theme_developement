@@ -20,7 +20,11 @@
     <?php wp_head() ?>
 </head>
 <body>
-    <!--Start Preloader-->
+
+    <?php if (cs_get_option('pre_loader')) {
+        ?>
+
+         <!--Start Preloader-->
     <div class="preloader">
         <div class="preloader-inner-area">
             <div class="loader-overlay">
@@ -31,6 +35,11 @@
         </div>
     </div> 
     <!--End Preloader-->
+    
+    <?php
+        
+    } ?>
+   
 
     <header id="header" class="header_areaa">
         <nav class="navbar extended">

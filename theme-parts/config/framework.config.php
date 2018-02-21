@@ -100,6 +100,22 @@ $options[] = array(
 );
 
 
+// The Preloader Section
+  
+  $options[]      = array(
+    'name'        => 'Preloader',
+    'title'       => 'Preloader Switcher',
+    'icon'        => 'fa fa-star',
+    'fields'      => array(
+        array(
+          'id'      => 'pre_loader',
+          'type'    => 'switcher',
+          'title'   => 'Preloader On of Off',
+        ),
+    ),
+
+  );
+
 
 // ----------------------------------------
 // a option section for options overview  -
