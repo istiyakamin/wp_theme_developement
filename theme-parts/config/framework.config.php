@@ -18,11 +18,14 @@ $settings           = array(
 // FRAMEWORK OPTIONS
 // -----------------------------------------------------------------------------------------------
 // ===============================================================================================
-$options        = array();
-
+$options[]      = array(
+  'name'        => 'Accordion',
+  'title'       => 'Accordion Section',
+  'icon'        => 'fa fa-star',
+  'sections'      =>array(
 // First Section
 
-$options[]      = array(
+array(
   'name'        => 'section_one',
   'title'       => 'Section One',
   'icon'        => 'fa fa-facebook',
@@ -52,12 +55,12 @@ $options[]      = array(
       'title'   => 'Select Title Color ',
     ),
   )
-);
+),
 
 
 // second SEction
 
-$options[] = array(
+array(
   'name'        => 'section_two',
   'title'       => 'Section two',
   'icon'        => 'fa fa-star',
@@ -97,12 +100,12 @@ $options[] = array(
         )
       ),
   )
-);
+),
 
 
 // The Preloader Section
   
-  $options[]      = array(
+array(
     'name'        => 'Preloader',
     'title'       => 'Preloader Switcher',
     'icon'        => 'fa fa-star',
@@ -114,7 +117,9 @@ $options[] = array(
         ),
     ),
 
-  );
+  ),
+),
+);
 
 
 // ----------------------------------------
