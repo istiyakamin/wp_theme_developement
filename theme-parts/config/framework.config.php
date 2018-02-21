@@ -21,7 +21,7 @@ $settings           = array(
 $options[]      = array(
   'name'        => 'Accordion',
   'title'       => 'Accordion Section',
-  'icon'        => 'fa fa-star',
+  'icon'        => 'fa fa-bars',
   'sections'      =>array(
 // First Section
 
@@ -119,6 +119,35 @@ array(
 
   ),
 ),
+);
+// ----------------------------------------
+// a option section for options Select  -
+// ----------------------------------------
+
+$options[] = array(
+  'name'        => 'menu_select',
+  'title'       => 'Select Menu',
+  'icon'        => 'fa fa-bars',
+  'fields'      => array(
+
+      array(
+
+        'id'      => 'select_menu',
+        'type'    => 'select',
+        'title'   => 'Main Menu Change',
+        'options' => array(
+          'nav_menu_1'=> 'Left Main Nav Menu',
+          'nav_menu_2'=> 'Right Main Nav Menu',
+        ),
+        'default' => 'nav_menu_2',
+
+      ),
+
+      
+  ),
+  
+
+
 );
 
 

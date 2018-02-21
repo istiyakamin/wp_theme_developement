@@ -35,11 +35,17 @@
         </div>
     </div> 
     <!--End Preloader-->
-    
+
     <?php
         
     } ?>
-   
+
+
+   <?php 
+
+   $menu = cs_get_option('select_menu');
+
+   if($menu == 'nav_menu_1'){ ?>
 
     <header id="header" class="header_areaa">
         <nav class="navbar extended">
@@ -68,3 +74,34 @@
             </div>
         </nav>
     </header><!-- /header -->
+    <?php }else{ ?>
+
+
+    <header id="header" class="header_areaa">
+        <nav class="navbar extended">
+            <div class="nav-wrapper dark-wrapper inverse-text">
+                <div class="container flex-it">
+                    <?php wp_nav_menu( array(
+                        'theme_location'  => 'header_menu',
+                        'container'       => 'div',
+                        'container_class' => 'navbar-collapse collapse align-left',
+                        'menu_class'      => 'nav navbar-nav',
+                        'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
+                        'depth'           => 2,
+                        'walker'          => new WP_Bootstrap_Navwalker()
+                    )); 
+
+                    ?>
+
+                <div class="navbar-other">    
+                    <div class="align-left text-left">
+                        <div class="navbar-brand">
+                            <a href="index-01.html"><img alt="images" src="<?php echo get_template_directory_uri(); ?>/images/logo_consult.png"></a>
+                        </div>
+                    </div>
+                    
+               </div>
+            </div>
+        </nav>
+    </header><!-- /header -->
+    <?php } ?>
